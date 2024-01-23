@@ -1,0 +1,13 @@
+{
+  "name": "get-figma-styles",
+  "id": "1331499592802577441",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "capabilities": ["inspect"],
+  "enableProposedApi": false,
+  "editorType": ["dev"],
+  "ui": "dist/ui.html",
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  }
+}

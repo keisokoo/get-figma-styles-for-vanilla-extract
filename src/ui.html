@@ -1,0 +1,36 @@
+<h2>스타일 출력 for vanilla extract</h2>
+<button id="copy">Copy</button>
+<p id="selection"></p>
+
+<script>
+  function copyToClipboard(textToCopy) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(textToCopy);
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      return new Promise((res, rej) => {
+        document.execCommand("copy") ? res() : rej();
+        textArea.remove();
+      });
+    }
+  }
+  onmessage = (event) => {
+    if (event.data.pluginMessage.type === "styles") {
+      console.log(event);
+      console.log(event.data.pluginMessage.text);
+      document.getElementById("selection").innerHTML =
+        event.data.pluginMessage.text;
+    }
+  };
+  document.getElementById("copy").onclick = () => {
+    const textbox = document.getElementById("selection");
+    copyToClipboard(textbox.innerText);
+  };
+</script>
