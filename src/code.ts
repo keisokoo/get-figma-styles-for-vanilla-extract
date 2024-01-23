@@ -68,7 +68,6 @@ function getBackgroundColor() {
           return null;
           // return extractSolidColor(paint.name, type, color)
         } else if (color.type === "GRADIENT_LINEAR") {
-          console.log("GRADIENT_LINEAR", color);
           const gradientTransform = color.gradientTransform;
           const matrixArray = [
             gradientTransform[0][0],
@@ -80,12 +79,6 @@ function getBackgroundColor() {
           ] as [number, number, number, number, number, number];
           const decomposedMatrix = decompose_2d_matrix(
             [...color.gradientTransform[0]].concat(color.gradientTransform[1])
-          );
-          console.log(
-            "decomposedMatrix in linear",
-            matrixArray,
-            decomposedMatrix,
-            color.gradientTransform
           );
           const bgColor = `linear-gradient(${
             decomposedMatrix.deg
@@ -99,8 +92,6 @@ function getBackgroundColor() {
           } as any;
           return extractLinearGradientColor(paint.name, color);
         } else if (color.type === "GRADIENT_RADIAL") {
-          console.log("radial", color);
-
           const gradientTransform = color.gradientTransform;
           const matrixArray = [
             Math.round(gradientTransform[0][0]),
@@ -112,11 +103,6 @@ function getBackgroundColor() {
           ] as [number, number, number, number, number, number];
           const decomposedMatrix = decompose_2d_matrix(
             [...color.gradientTransform[0]].concat(color.gradientTransform[1])
-          );
-          console.log(
-            "decomposedMatrix in GRADIENT_RADIAL",
-            decomposedMatrix,
-            color.gradientTransform
           );
           return null;
         } else {
@@ -217,10 +203,8 @@ function getLocalTextStyles() {
     }, {} as any);
 }
 const localTextStyles = getLocalTextStyles();
-console.log("typography", localTextStyles);
 const localSolidColors = getLocalSolidStyles();
 const localBackgroundColors = getBackgroundColor();
-console.log("colors", merge(localSolidColors, localBackgroundColors));
 
 const allColors = merge(localSolidColors, localBackgroundColors);
 const onlyKeysValueIsNullColors = Object.keys(allColors).reduce(
@@ -236,7 +220,7 @@ figma.ui.postMessage({
   import { createThemeContract, createTheme } from "@vanilla-extract/css";
 
   export const figmaTypography = ${JSON.stringify(localTextStyles, null, 2)};
-  
+
   const colors = createThemeContract(${JSON.stringify(
     onlyKeysValueIsNullColors,
     null,
