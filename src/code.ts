@@ -221,7 +221,7 @@ figma.ui.postMessage({
 
   export const figmaTypography = ${JSON.stringify(localTextStyles, null, 2)};
 
-  const colors = createThemeContract(${JSON.stringify(
+  export const figmaColors = createThemeContract(${JSON.stringify(
     onlyKeysValueIsNullColors,
     null,
     2
