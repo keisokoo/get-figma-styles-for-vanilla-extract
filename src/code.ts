@@ -226,7 +226,7 @@ figma.ui.postMessage({
     null,
     2
   )});
-  export const figmaTheme = createTheme(colors, ${JSON.stringify(
+  export const figmaTheme = createTheme(figmaColors, ${JSON.stringify(
     allColors,
     null,
     2
